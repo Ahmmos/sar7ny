@@ -1,0 +1,29 @@
+<%- include('./shared/header.ejs') %>
+
+    <div class="container text-center my-5">
+        <div class="user my-3">
+            <h2>Forget your password</h2>
+        </div>
+        <div class="card p-5 w-50 m-auto">
+            <% if (error) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+                <% } %>
+                    <% if (success) { %>
+                        <div class="alert alert-success" role="alert">
+                            <%= success %>
+                        </div>
+                        <% } %>
+                            <form method="POST" action="/forget">
+                                <input class="form-control" type="email" name="email" placeholder="Enter your email"
+                                    required />
+                                <button type="submit" class="btn btn-default-outline my-4 w-100 rounded">Send Reset
+                                    Link</button>
+                            </form>
+
+        </div>
+    </div>
+
+
+    <%- include('./shared/footer.ejs') %>

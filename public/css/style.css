@@ -1,0 +1,114 @@
+body {
+    background-color: #f5f8fa;
+}
+
+.bg-custom {
+    background-color: #10bbb3 !important;
+}
+
+.nav-link {
+    color: #fff !important;
+}
+
+.btn-default-outline {
+    color: #0da39c !important;
+    background-color: transparent;
+    border-color: #10BBB3;
+    width: 200px;
+    border-radius: 50px;
+}
+
+.btn-default-outline:hover {
+    color: #fff !important;
+    background-color: #10BBB3;
+    box-shadow: none;
+}
+
+.forgot:hover {
+    color: #10BBB3 !important;
+}
+
+.login {
+    color: #0da39c;
+}
+
+.user-icon {
+    font-size: 60px;
+    color: #C0C0C0;
+}
+
+.avatar {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+}
+
+.share {
+    margin: 0px auto 10px auto;
+}
+
+h5 {
+    color: #FF824C;
+}
+
+.homeContainer {
+    margin-top: 50px;
+    margin-bottom: 300px;
+}
+
+.socialIcon {
+    margin-right: 20px;
+}
+
+.playpen-sans-arabic {
+    font-family: "Playpen Sans Arabic", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 1.5rem;
+    font-style: normal;
+    padding-top: 20px;
+}
+
+
+
+.msgBox {
+    background-color: #fff;
+    border-radius: 40px;
+    padding: 15px;
+    border-width: 3px;
+    box-shadow: 0 22px 17px rgba(0, 0, 0, 0.1);
+}
+
+#deleteBtn {
+    border: none;
+    border-radius: 23px;
+    padding: 7px 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+
+}
+
+
+
+#confirmDel {
+    border-radius: 23px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.btn-outline-secondary {
+    border-radius: 23px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+}

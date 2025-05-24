@@ -1,0 +1,160 @@
+<%- include('./shared/headerLogout.ejs') %>
+
+    <div class="container text-center py-5 my-5 text-center">
+        <div class="card pt-5">
+            <a href="" data-toggle="modal" data-target="#profile">
+                <img src="img/avatar.png" class="avatar " alt="">
+
+            </a>
+
+            <h3 class="py-2">
+                <%= userName %>
+            </h3>
+            <button data-toggle="modal" data-target="#share" class="btn btn-default-outline share "><i
+                    class="fas fa-share-alt"></i> Share Profile</button>
+        </div>
+    </div>
+    <!-- profile photo Modal -->
+    <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change photo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container">
+                        <form action="" method="post">
+                            <label for="" class="text-muted">The file size of the photo should not exceed 7 MB</label>
+                            <input class="form-control" type="file" name="photo" id="">
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info">Upload</button>
+                    <button type="button" class="btn btn-outline-danger">Remove Photo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  Share profile Modal -->
+    <div class="modal fade" id="share" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Share Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <p><a target="_blank" href="<%= url %>">
+                            <%= url %>
+                        </a></p>
+                    <img src="<%= qrCode %>" class="w-75" alt="">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /modal -->
+
+
+
+    <!-- =================messages=================== -->
+
+    <div class="container text-center my-5 text-center">
+        <% if (error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+                    <script>
+                        // Redirect to messages again after 3 seconds
+                        setTimeout(() => {
+                            window.location.href = '<%= msgUrl %>'; // or any other page
+                        }, 3000); // 3000 milliseconds = 3 seconds
+                    </script>
+            </div>
+            <% } %>
+                <% if (success) { %>
+                    <div class="alert alert-success" role="alert">
+                        <%= success %>
+                    </div>
+                    <script>
+                        // Redirect to messages again after 3 seconds
+                        setTimeout(() => {
+                            window.location.href = '<%= msgUrl %>'; // or any other page
+                        }, 3000); // 3000 milliseconds = 3 seconds
+                    </script>
+                    <% } %>
+                        <div class="row">
+                            <% if (messages.length===0) { %>
+                                <div class="col-md-12">
+                                    <div class="alert alert-info" role="alert">
+                                        No messages yet. Share your profile to receive messages!
+                                    </div>
+                                </div>
+                                <% } else { %>
+
+                                    <% for (let index=0; index < messages.length; index++) { let
+                                        message=messages[index]; %>
+                                        <div class="col-md-6">
+                                            <div class="card py-5 my-4 msgBox">
+                                                <p class="playpen-sans-arabic">
+                                                    <%= message.messege %>
+                                                </p>
+
+                                                <button type="button" id="deleteBtn"
+                                                    class=" col-md-3 mt-3 btn-outline-danger" data-toggle="modal"
+                                                    data-target="#deleteModal<%= message._id %>">
+                                                    delete
+                                                </button>
+
+                                                <div class="modal fade" id="deleteModal<%= message._id %>" tabindex="-1"
+                                                    aria-labelledby="deleteModalLabel<%= message._id %>"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title text-dark"
+                                                                    id="deleteModalLabel<%= message._id %>">Delete
+                                                                    Confirmation
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure you want to delete this message?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-outline-secondary"
+                                                                    data-dismiss="modal">Cancel</button>
+                                                                <form action="/deleteMsg/<%= message._id %>"
+                                                                    method="GET" style="display:inline;">
+                                                                    <button type="submit" id="confirmDel"
+                                                                        class="btn btn-outline-danger">Yes,
+                                                                        Delete</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                            <% } %>
+
+                        </div>
+    </div>
+
+
+
+    <%- include('./shared/footer.ejs') %>
