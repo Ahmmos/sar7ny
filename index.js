@@ -8,7 +8,7 @@ import homeRoute from './src/modules/home/home.routes.js'
 import authRoute from './src/modules/auth/auth.router.js'
 import messagesRouter from './src/modules/messages/message.routes.js'
 import userRouter from './src/modules/users/user.route.js'
-import { globalError } from '../e-Commorce-Api/src/middleWare/globalErrorHandling.js'
+import { globalError } from './src/middleware/globalErrorHandling.js'
 import cors from 'cors'
 import path from 'path'
 
