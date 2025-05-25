@@ -15,6 +15,7 @@ const user = errorCatch(async (req, res) => {
 const sendMessege = errorCatch(async (req, res) => {
     // Ensure the database connection is established
     await ensureDbConnection();
+    console.log(req.params.id)
 
     req.body.user = req.params.id
     const messege = await Messege(req.body)
