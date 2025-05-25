@@ -81,7 +81,11 @@ const forgetPassword = errorCatch(async (req, res) => {
     let user = await User.findOne({ email: email })
     if (!user) return res.redirect("/forget?error=email not found, please enter a valid email");
 
-    sendEmails(email, user._id)
+    user.resetPassword = true
+    await user.save()
+
+    const url = `${req.protocol}://${req.get('host')}/reset/${user._id}`
+    sendEmails(email, url)
 
     return res.redirect(`/forget?success=messege sent successfully please check your email`);
 
@@ -101,9 +105,14 @@ const resetPassword = errorCatch(async (req, res) => {
 
     if (!user) return res.redirect(`/reset/${req.params.id}/?error=user not found`);
 
-    if (bcrypt.compareSync(newPassword, user.password)) return res.redirect(`/reset/${req.params.id}/?error=enter a new password, the new password should be different from the old one`);
+    if (user.resetPassword === false) return res.redirect(`/reset/${req.params.id}/?error=you are not allowed to reset this password, please contact the admin`);
 
+
+    if (bcrypt.compareSync(newPassword, user.password)) return res.redirect(`/reset/${req.params.id}/?error=enter a new password, the new password should be different from the old one`);
+    
     user.password = await bcrypt.hash(newPassword, 8)
+    user.resetPassword = false
+    
     await user.save()
     return res.redirect("/login?success=your password has been changed successfully, please login with your new password");
 })
