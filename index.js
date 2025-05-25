@@ -10,18 +10,25 @@ import userRouter from './src/modules/users/user.route.js'
 import { globalError } from './src/middleware/globalErrorHandling.js'
 import cors from 'cors'
 import path from 'path'
+import dotenv from 'dotenv';
+dotenv.config();
+
 // used to create authentication and authrization for the app 
 import session from 'express-session'
 // to connect mongodb and save sessions inside it
 import mongoSession from 'connect-mongodb-session'
-import { ensureDbConnection } from './database/dbConnection.js'
 
-await ensureDbConnection();
+const connectionString = process.env.DB_URI;
+if (!connectionString) {
+    console.error('FATAL ERROR: DB_URI is not defined in environment variables for session store.');
+    process.exit(1); // Exit the application if DB_URI is not set
+}
+
 
 let MongoDBStore = mongoSession(session);
 
 let store = new MongoDBStore({
-    uri: 'mongodb://127.0.0.1:27017/Saraha',
+    uri: connectionString,
     collection: 'mySessions'
 });
 
