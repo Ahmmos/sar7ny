@@ -3,6 +3,7 @@ import { User } from "../../../database/models/user.model.js";
 import { sendEmails } from "../../mailSender/mail.js";
 import { errorCatch } from "../../middleware/errorCatch.js";
 import bcrypt from "bcrypt";
+import { ensureDbConnection } from "../../../database/dbConnection.js";
 
 
 
@@ -13,6 +14,10 @@ const logIn = errorCatch(async (req, res) => {
     res.render("login", { error: req.query.error, success: req.query.success })
 })
 const handleLogin = errorCatch(async (req, res) => {
+    // Ensure the database connection is established
+    await ensureDbConnection();
+
+    // Destructure email and password from the request body
     let { email, password } = req.body
     // check if the user is exist or not
     const user = await User.findOne({ email })
@@ -28,6 +33,10 @@ const handleLogin = errorCatch(async (req, res) => {
     res.redirect("/messages")
 })
 const handleRegister = errorCatch(async (req, res) => {
+    // Ensure the database connection is established
+    await ensureDbConnection();
+
+    // Destructure email, password, and confirmPassword from the request body
     let { email, password, confirmPassword } = req.body
     // check if the user is exist or not
     const isExsist = await User.findOne({ email })
@@ -65,6 +74,9 @@ const forget = errorCatch((req, res) => {
 })
 
 const forgetPassword = errorCatch(async (req, res) => {
+    // Ensure the database connection is established
+    await ensureDbConnection();
+
     const { email } = req.body
     let user = await User.findOne({ email: email })
     if (!user) return res.redirect("/forget?error=email not found, please enter a valid email");
@@ -79,6 +91,9 @@ const reset = errorCatch(async (req, res) => {
     res.render('reset', { error: req.query.error, success: req.query.success, id: req.params.id });
 })
 const resetPassword = errorCatch(async (req, res) => {
+    // Ensure the database connection is established
+    await ensureDbConnection();
+
     const { newPassword } = req.body
     const { id } = req.params
 

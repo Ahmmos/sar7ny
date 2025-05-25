@@ -3,7 +3,6 @@ process.on("uncaughtException", (err) => {
     console.log("error in code", err)
 })
 import express from 'express'
-import { dbConnection } from './database/dbConnection.js'
 import homeRoute from './src/modules/home/home.routes.js'
 import authRoute from './src/modules/auth/auth.router.js'
 import messagesRouter from './src/modules/messages/message.routes.js'
@@ -11,13 +10,15 @@ import userRouter from './src/modules/users/user.route.js'
 import { globalError } from './src/middleware/globalErrorHandling.js'
 import cors from 'cors'
 import path from 'path'
-
 // used to create authentication and authrization for the app 
 import session from 'express-session'
 // to connect mongodb and save sessions inside it
 import mongoSession from 'connect-mongodb-session'
-let MongoDBStore = mongoSession(session);
+import { ensureDbConnection } from './database/dbConnection.js'
 
+await ensureDbConnection();
+
+let MongoDBStore = mongoSession(session);
 
 let store = new MongoDBStore({
     uri: 'mongodb://127.0.0.1:27017/Saraha',
