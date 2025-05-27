@@ -1,4 +1,3 @@
-import { ensureDbConnection } from "../../../database/dbConnection.js";
 import { Messege } from "../../../database/models/messegs.model.js";
 import { errorCatch } from "../../middleware/errorCatch.js";
 import QRCode from 'qrcode'
@@ -9,9 +8,7 @@ import QRCode from 'qrcode'
 
 
 const messages = errorCatch(async (req, res) => {
-    // Ensure the database connection is established
-    await ensureDbConnection();
-
+   
     // get url automatically
     const url = `${req.protocol}://${req.get('host')}/user/${req.session.userId}`
     const msgUrl = `${req.protocol}://${req.get('host')}/messages`
@@ -33,9 +30,7 @@ const messages = errorCatch(async (req, res) => {
 
 })
 const deleteMsg = errorCatch(async (req, res) => {
-    // Ensure the database connection is established
-    await ensureDbConnection();
-
+   
     const message = await Messege.findByIdAndDelete(req.params.id)
     if (!message) return res.redirect('/messages?error=message not found');
 

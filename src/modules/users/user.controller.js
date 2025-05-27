@@ -1,4 +1,3 @@
-import { ensureDbConnection } from "../../../database/dbConnection.js";
 import { Messege } from "../../../database/models/messegs.model.js";
 import { errorCatch } from "../../middleware/errorCatch.js";
 
@@ -13,8 +12,7 @@ const user = errorCatch(async (req, res) => {
 })
 
 const sendMessege = errorCatch(async (req, res) => {
-    // Ensure the database connection is established
-    await ensureDbConnection();
+
 
     req.body.user = req.params.id
     const messege = await Messege(req.body)

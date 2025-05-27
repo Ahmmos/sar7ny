@@ -3,7 +3,6 @@ import { User } from "../../../database/models/user.model.js";
 import { sendEmails } from "../../mailSender/mail.js";
 import { errorCatch } from "../../middleware/errorCatch.js";
 import bcrypt from "bcrypt";
-import { ensureDbConnection } from "../../../database/dbConnection.js";
 
 
 
@@ -14,9 +13,7 @@ const logIn = errorCatch(async (req, res) => {
     res.render("login", { error: req.query.error, success: req.query.success })
 })
 const handleLogin = errorCatch(async (req, res) => {
-    // Ensure the database connection is established
-    await ensureDbConnection();
-
+   
     // Destructure email and password from the request body
     let { email, password } = req.body
     // check if the user is exist or not
@@ -33,8 +30,6 @@ const handleLogin = errorCatch(async (req, res) => {
     res.redirect("/messages")
 })
 const handleRegister = errorCatch(async (req, res) => {
-    // Ensure the database connection is established
-    await ensureDbConnection();
 
     // Destructure email, password, and confirmPassword from the request body
     let { email, password, confirmPassword } = req.body
@@ -74,8 +69,6 @@ const forget = errorCatch((req, res) => {
 })
 
 const forgetPassword = errorCatch(async (req, res) => {
-    // Ensure the database connection is established
-    await ensureDbConnection();
 
     const { email } = req.body
     let user = await User.findOne({ email: email })
@@ -95,8 +88,6 @@ const reset = errorCatch(async (req, res) => {
     res.render('reset', { error: req.query.error, success: req.query.success, id: req.params.id });
 })
 const resetPassword = errorCatch(async (req, res) => {
-    // Ensure the database connection is established
-    await ensureDbConnection();
 
     const { newPassword } = req.body
     const { id } = req.params
@@ -109,10 +100,10 @@ const resetPassword = errorCatch(async (req, res) => {
 
 
     if (bcrypt.compareSync(newPassword, user.password)) return res.redirect(`/reset/${req.params.id}/?error=enter a new password, the new password should be different from the old one`);
-    
+
     user.password = await bcrypt.hash(newPassword, 8)
     user.resetPassword = false
-    
+
     await user.save()
     return res.redirect("/login?success=your password has been changed successfully, please login with your new password");
 })
