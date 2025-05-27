@@ -3,6 +3,7 @@ process.on("uncaughtException", (err) => {
     console.log("error in code", err)
 })
 import express from 'express'
+import { dbConnection } from './database/dbConnection.js'
 import homeRoute from './src/modules/home/home.routes.js'
 import authRoute from './src/modules/auth/auth.router.js'
 import messagesRouter from './src/modules/messages/message.routes.js'
