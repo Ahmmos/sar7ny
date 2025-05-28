@@ -6,16 +6,12 @@ import { errorCatch } from "../../middleware/errorCatch.js";
 
 
 
-
 const user = errorCatch(async (req, res) => {
-
-    const { userId } = req.params.id
-    let userName = null;
-    console.log(userId);
-
-    const user = await User.findById(userId);
-    if (!user) return res.redirect(`/user/${userId}?error=User Not fount`);
-    userName = user.name;
+    const { id } = req.params
+    const user = await User.findById(id);
+    if (!user) return res.redirect(`/user/${id}?error=User Not fount`);
+    const userId = user._id;
+    const userName = user.name;
 
     res.render("user", { userName, userId, error: req.query.error, success: req.query.success })
 })
