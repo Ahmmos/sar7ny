@@ -1,4 +1,5 @@
 import { Messege } from "../../../database/models/messegs.model.js";
+import { User } from "../../../database/models/user.model.js";
 import { errorCatch } from "../../middleware/errorCatch.js";
 
 
@@ -7,13 +8,19 @@ import { errorCatch } from "../../middleware/errorCatch.js";
 
 
 const user = errorCatch(async (req, res) => {
-    let { userName, userId } = req.session
+
+    const { userId } = req.params.id
+    let userName = null;
+
+    const user = await User.findById(userId);
+    if (!user) return res.redirect('/login?error=User Not fount');
+    userName = user.name;
+
     res.render("user", { userName, userId, error: req.query.error, success: req.query.success })
 })
 
+
 const sendMessege = errorCatch(async (req, res) => {
-
-
     req.body.user = req.params.id
     const messege = await Messege(req.body)
     if (messege.messege.length < 4) return res.redirect(`/user/${req.params.id}/?error=messege must be at least 4 characters long`);
