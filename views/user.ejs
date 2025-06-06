@@ -8,35 +8,43 @@
             </a> -->
             <i class="fa-solid fa-circle-user fa-5x" style="color: #06a298;"></i>
             <h3 class="py-2">
-                <%= userName %>
+                <%= receiverName %>
             </h3>
 
-            <div class="container w-50 m-auto">
-                <% if (error) { %>
-                    <div class="alert alert-danger" role="alert">
-                        <%= error %>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-8 col-md-6 col-lg-6 col-xl-6">
+                        <div class=" m-auto">
+                            <% if (error) { %>
+                                <div class="alert alert-danger" role="alert">
+                                    <%= error %>
+                                </div>
+                                <% } %>
+                                    <% if (success) { %>
+                                        <div class="alert alert-success" role="alert">
+                                            <%= success %>
+                                        </div>
+                                        <% } %>
+                                            <form action="/postMsg/<%= receiverId %>" method="post">
+                                                <textarea class="form-control" name="messege" id="" cols="10" rows="9"
+                                                    placeholder="This message will be sent anonymously — the receiver won't know who sent it. Message should be less than 500 character"
+                                                    )"></textarea>
+                                                <button class="btn btn-outline-info mt-3"><i
+                                                        class="far fa-paper-plane"></i>
+                                                    Send</button>
+                                            </form>
+                        </div>
                     </div>
-                    <% } %>
-                        <% if (success) { %>
-                            <div class="alert alert-success" role="alert">
-                                <%= success %>
-                            </div>
-                            <% } %>
-                                <form action="/postMsg/<%= userId %>" method="post">
-                                    <textarea class="form-control" name="messege" id="" cols="10" rows="9"
-                                        placeholder="This message will be sent anonymously — the receiver won't know who sent it. Message should be less than 500 character"
-                                        )"></textarea>
-                                    <button class="btn btn-outline-info mt-3"><i class="far fa-paper-plane"></i>
-                                        Send</button>
-                                </form>
+                </div>
+
+
             </div>
+
+
         </div>
 
 
-    </div>
 
 
 
-
-
-    <%- include('./shared/footer.ejs') %>
+        <%- include('./shared/footer.ejs') %>

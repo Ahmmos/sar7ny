@@ -15,10 +15,11 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    resetPassword: {
-        type: Boolean,
-        default: false
-
+    resetPasswordToken: {
+        type: String
+    },
+    resetPasswordExpires: {
+        type: Date
     },
     createdAt: {
         type: Date,

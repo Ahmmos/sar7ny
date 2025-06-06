@@ -22,11 +22,11 @@ authRoute.get('/login', logIn)
 authRoute.get('/register', register)
 authRoute.get('/logout', logout)
 authRoute.get('/forget', forget)
-authRoute.get('/reset/:id', reset)
+authRoute.get('/reset/:id/:token', reset)
 
 authRoute.post('/handleLogin', handleLogin)
 authRoute.post('/forget', forgetPassword)
-authRoute.post('/reset/:id', resetPassword)
+authRoute.post('/reset/:id/:token', resetPassword)
 authRoute.post('/handleRegister', handleRegister)
 
 

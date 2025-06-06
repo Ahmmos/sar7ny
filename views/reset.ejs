@@ -2,21 +2,29 @@
 
     <div class="container text-center my-5">
         <div class="user my-3">
-            <h2>Reset your password</h2>
+            <h3>Reset your password</h3>
         </div>
-        <div class="card p-5 w-50 m-auto">
-            <% if (error) { %>
-                <div class="alert alert-danger" role="alert">
-                    <%= error %>
-                </div>
-                <% } %>
-                    <form method="POST" action=/reset/<%=id %>>
-                        <input class="form-control" type="password" name="newPassword" placeholder="New password"
-                            required />
-                        <button type="submit" class="btn btn-default-outline my-4 w-100 rounded">Update
-                            Password</button>
-                    </form>
 
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-5 p-5 rounded shadow">
+                    <div class="m-auto">
+                        <% if (error) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= error %>
+                            </div>
+                            <% } %>
+                                <form method="POST" action="/reset/<%=id %>/<%=token %>">
+                                    <input class="form-control" type="password" name="newPassword"
+                                        placeholder="New password" required />
+                                    <button type="submit" class="btn btn-default-outline my-4 w-100 rounded">Update
+                                        Password</button>
+                                </form>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 

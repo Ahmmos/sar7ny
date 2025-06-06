@@ -6,9 +6,10 @@ import { AppError } from "../../utilts/appError.js";
 
 
 
-const home = errorCatch(async(req, res) => {
+const home = errorCatch(async (req, res) => {
+    let { userName, userId, isLoggedIn } = req.session
 
-    res.render("home")
+    res.render("home", { userName, userId, isLoggedIn })
 })
 
 
